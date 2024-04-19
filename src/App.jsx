@@ -1,6 +1,7 @@
+import { useState } from 'react';
+import cn from 'classnames';
 import 'bulma/css/bulma.css';
 import './App.scss';
-import { useState } from 'react';
 
 export const goods = [
   'Dumplings',
@@ -42,34 +43,20 @@ export const App = () => {
               data-cy="Good"
               className={`${good === selectedGood ? 'has-background-success-light' : ''}`}
             >
-              {selectedGood !== good ? (
-                <td>
-                  <button
-                    onClick={() => {
-                      setSelectedGood(good);
-                    }}
-                    data-cy="AddButton"
-                    type="button"
-                    className="button"
-                  >
-                    +
-                  </button>
-                </td>
-              ) : (
-                <td>
-                  <button
-                    onClick={() => {
-                      setSelectedGood('');
-                    }}
-                    data-cy="RemoveButton"
-                    type="button"
-                    className="button is-info"
-                  >
-                    -
-                  </button>
-                </td>
-              )}
-
+              <td>
+                <button
+                  onClick={() => {
+                    setSelectedGood(selectedGood !== good ? good : '');
+                  }}
+                  data-cy={selectedGood !== good ? 'AddButton' : 'RemoveButton'}
+                  type="button"
+                  className={cn('button', {
+                    'is-info': selectedGood === good,
+                  })}
+                >
+                  {selectedGood !== good ? '+' : '-'}
+                </button>
+              </td>
               <td data-cy="GoodTitle" className="is-vcentered">
                 {good}
               </td>
